@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+
+input[type=submit]  {
+  background-color: #04AA6D;
+  color: white;
+}
+
+.container {
+  background-color: #f1f1f1;
+  padding: 20px;
+}
+
+#message_nom {
+  display:block;
+  background: #f1f1f1;
+  color: #000;
+  position: relative;
+  padding: 10px 10px 10px 50px;
+  margin-top: 5px;
+}
+
+#message_nom p {
+  padding: 5px 25px;
+  font-size: 18px;
+}
+
+#message_passwd {
+  display:block;
+  background: #f1f1f1;
+  color: #000;
+  position: relative;
+  padding: 10px 10px 10px 50px;
+  margin-top: 5px;
+}
+
+#message_passwd p {
+  padding: 5px 25px;
+  font-size: 18px;
+}
+
+.valid {
+  color: green;
+}
+
+.valid:before {
+  position: relative;
+  left: -20px;
+  content: "✔";
+}
+
+.invalid {
+  color: red;
+}
+
+.invalid:before {
+  position: relative;
+  left: -20px;
+  content: "✖";
+}
+</style>
+</head>
+
+<body>
+
+<h3>Validació contrasenya</h3>
+
+
+<form action="pelicules.html">
+  <div class="container">
+        <label for="usrname">Nom</label><br>
+        <input type="text" id="usrname" name="usrname" title="Ha de tenir una @" required required><br><br>
+
+        <label for="psw">Contrasenya</label><br>
+        <input type="password" id="psw" name="psw" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Ha de tenir una minúscula, una majúscula, un número i almenys vuit caràcters" required>
+        <br><br>
+        <input type="checkbox" id="mostrar" onclick="mostrarContrasenya()">Mostrar contrasenya
+  </div>      
+
+
+
+  <div id="message_nom">
+      <h3>El nom ha de tenir:</h3>
+      <p id="arroba" class="invalid">Una @</p>    
+  </div>
+
+  <div id="message_passwd">
+      <h3>La contrasenya ha de tenir:</h3>
+      <p id="letter" class="invalid">Una lletra <b>minúscula</b></p>
+      <p id="capital" class="invalid">Una lletra <b>majúscula</b></p>
+      <p id="number" class="invalid">Un <b>número</b></p>
+      <p id="length" class="invalid">Mínim <b>8 caràcters</b></p>
+  </div>
+  
+  <br><br><input type="submit" value="Enviar" id="botonSubmit">
+</form>
+
+
+
+<script>
+//Elements del DOM:nom d'usuari, missatge div i el missatge @
+const usernameInput = document.getElementById('usrname');
+const arrobaMessage = document.getElementById('arroba');
+const messageNom = document.getElementById('message_nom');
+
+// Funció camp d'input
+function comprovarUsername() {
+  // Comprovem si conté el caracter '@'
+  if (usernameInput.value.includes('@')) {
+    // Si conté '@', afegim css id 'invalid' i eliminem 'valid'
+    arrobaMessage.classList.add('valid');
+    arrobaMessage.classList.remove('invalid');
+    messageNom.style.display = 'none'; // ocultar el div
+  } else {
+    // Si no conté '@', afegim css id 'invalid' i eliminem 'valid'
+    arrobaMessage.classList.add('invalid');
+    arrobaMessage.classList.remove('valid');
+    messageNom.style.display = 'block'; // mostrar el div
+  }
+}
+// trucar la funció checkUsername
+usernameInput.addEventListener('input', comprovarUsername);
+
+// Obtenim els elements del DOM: l'input de la contrasenya i els indicadors de validació
+const passwordInput = document.getElementById('psw');
+const letter = document.getElementById('letter');
+const capital = document.getElementById('capital');
+const number = document.getElementById('number');
+const length = document.getElementById('length');
+
+// Funció que comprova les condicions de la contrasenya
+function comprovarPassword() {
+  // Obtenim el valor actual de la contrasenya
+  const value = passwordInput.value;
+
+  //minúscules
+  if (/[a-z]/.test(value)) {
+    letter.classList.remove('invalid'); // treiem la classe que indica error
+    letter.classList.add('valid');      // afegim la classe que indica que està bé
+  } else {
+    letter.classList.remove('valid');
+    letter.classList.add('invalid');
+  }
+
+  //majúscules
+  if (/[A-Z]/.test(value)) {
+    capital.classList.remove('invalid');
+    capital.classList.add('valid');
+  } else {
+    capital.classList.remove('valid');
+    capital.classList.add('invalid');
+  }
+
+  //números
+  if (/\d/.test(value)) {
+    number.classList.remove('invalid');
+    number.classList.add('valid');
+  } else {
+    number.classList.remove('valid');
+    number.classList.add('invalid');
+  }
+
+  // longitud és mín. 8 caràcters
+  if (value.length >= 8) {
+    length.classList.remove('invalid');
+    length.classList.add('valid');
+  } else {
+    length.classList.remove('valid');
+    length.classList.add('invalid');
+  }
+}
+// trucar la funció comprovarPassword
+passwordInput.addEventListener('input', comprovarPassword);
+
+// activar/desactivar checkbox
+function mostrarContrasenya() {
+  const pswShow = document.getElementById("psw");
+  if (psw.type === "password") {
+    pswShow.type = "text";  // Mostrar la contrasenya 
+  } else {
+    pswShow.type = "password"; // Amagar la contrasenya
+  }
+}
+</script>
+
+</body>
+</html>
