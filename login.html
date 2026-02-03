@@ -105,6 +105,7 @@ input[type=submit]  {
 const usernameInput = document.getElementById('usrname');
 const arrobaMessage = document.getElementById('arroba');
 const messageNom = document.getElementById('message_nom');
+const messagePasswd = document.getElementById('message_passwd');
 
 // Funció camp d'input
 function comprovarUsername() {
@@ -140,36 +141,44 @@ function comprovarPassword() {
   if (/[a-z]/.test(value)) {
     letter.classList.remove('invalid'); // treiem la classe que indica error
     letter.classList.add('valid');      // afegim la classe que indica que està bé
+    messagePasswd.style.display = 'none'; // ocultar el div
   } else {
     letter.classList.remove('valid');
     letter.classList.add('invalid');
+    messagePasswd.style.display = 'block'; // mostrar el div
   }
 
   //majúscules
   if (/[A-Z]/.test(value)) {
     capital.classList.remove('invalid');
     capital.classList.add('valid');
+    messagePasswd.style.display = 'none'; // ocultar el div
   } else {
     capital.classList.remove('valid');
     capital.classList.add('invalid');
+    messagePasswd.style.display = 'block'; // mostrar el div
   }
 
   //números
   if (/\d/.test(value)) {
     number.classList.remove('invalid');
     number.classList.add('valid');
+    messagePasswd.style.display = 'none'; // ocultar el div
   } else {
     number.classList.remove('valid');
     number.classList.add('invalid');
+    messagePasswd.style.display = 'block'; // mostrar el div
   }
 
   // longitud és mín. 8 caràcters
   if (value.length >= 8) {
     length.classList.remove('invalid');
     length.classList.add('valid');
+    messagePasswd.style.display = 'none'; // ocultar el div
   } else {
     length.classList.remove('valid');
     length.classList.add('invalid');
+    messagePasswd.style.display = 'block'; // mostrar el div
   }
 }
 // trucar la funció comprovarPassword
@@ -183,8 +192,19 @@ function mostrarContrasenya() {
   } else {
     pswShow.type = "password"; // Amagar la contrasenya
   }
+
+
 }
 </script>
 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
